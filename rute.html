@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebGIS Angkot</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/responsive.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="hero_area">
+        <div class="header_section">
+            <div class="header_top">
+                <div class="contact_nav">
+                    <img src="image/logo-salatiga.png" style="width: 25px; height: auto; opacity: 0.5;">
+                    <a href="#">Peta Jalur Trayek Angkot Salatiga</a>
+                </div>
+            </div>
+        </div>
+        <div class="header_bottom">
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-lg custom_nav-container">
+                    <a class="navbar-brand" href="index.html">
+                        <img src="images/logo.png" alt="">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                      </button> 
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item"><a class="nav-link" href="index.html">Peta</a></li>
+                            <li class="nav-item active"><a class="nav-link" href="rute.html">Rute</a></li>
+                            <li class="nav-item"><a class="nav-link" href="lokasi.html">Lokasi</a></li>
+                            <li class="nav-item"><a class="nav-link" href="testimonial.html">Bantuan</a></li>
+                            
+                            <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" id="trayekDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                  Trayek
+                              </a>
+                              <ul class="dropdown-menu" aria-labelledby="trayekDropdown">
+                                  <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(1)">Trayek 1</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(2)">Trayek 2</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(3)">Trayek 3</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(4)">Trayek 4</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(5)">Trayek 5</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(6)">Trayek 6</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(7)">Trayek 7</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(8)">Trayek 8</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(9)">Trayek 9</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(10)">Trayek 10</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(11)">Trayek 11</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(12)">Trayek 12</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(13)">Trayek 13</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(14)">Trayek 14</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(15)">Trayek 15</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(16)">Trayek 16</a></li>
+                                  <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(17)">Trayek 17</a></li>
+                                  <!-- Tambahkan sampai 17 -->
+                              </ul>
+                          </li>
+                        
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="container my-5">
+        <h3 class="text-center mb-4" style="color: #eb5b00;">Data Rute Angkot Salatiga</h3>
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover">
+            <thead class="custom-header text-center">
+              <tr>
+                <th>No</th>
+                <th>Route</th>
+                <th>Jalur Berangkat</th>
+                <th>Jalur Datang</th>
+                <th>Tujuan</th>
+                <th>Jarak</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Contoh Isi -->
+              <tr>
+                <td>1</td>
+                <td>Tamansari–Karangrejo PP</td>
+                <td>Tamansari - Jl. Pemuda - Jl. Diponegoro - Jl. Wahid Hasyim - Jl. Imam Bonjol - Karangrejo (Desa Kecandran)</td>
+                <td>Karangrejo - Jl. Imam Bonjol - Jl. Wahid Hasyim - Jl. Diponegoro - Jl. Dr. Sumardi - Jl. Patimura - Tamansari</td>
+                <td>Kecandran, Sidomukti</td>
+                <td>5,3 KM</td>
+              </tr>
+              <td>2</td>
+                <td>Tamansari-Modangan PP</td>
+                <td>Tamansari - Jl. Pemuda - Jl. Diponegoro – Modangan -Griya Permai</td>
+                <td>Griya Permai - Modangan - Jl. Diponegoro - Jl. Dr. Sumardi - Jl. Patimura - Jl. Pemuda – Tamansari</td>
+                <td>Blotongan, Sidorejo</td>
+                <td>5,8 KM</td>
+                </tr>
+              <tr>
+                <td>3</td>
+                <td>Tamansari- Kauman Kidul PP</td>
+                <td>Tamansari - Jl. Pemuda - Jl. Patimura - Pasar Anyar (Desa Kauman Kidul)-Puskesmas Pabelan</td>
+                <td>Puskesmas Pabelan - Pasar Anyar (Desa Kauman Kidul) - Jl. Patimura - Jl. Pemuda – Tamansari</td>
+                <td>Kauman Kidul, Sidorejo</td>
+                <td>4,5 KM</td>
+              </tr>
+              <tr>
+                <td>4</td>
+                <td>Tamansari-Kalibening PP</td>
+                <td>Puskesmas Pabelan - Pasar Anyar (Desa Kauman Kidul) -Jl. Patimura - Jl. Pemuda – Tamansari</td>
+                <td>Kalibening - Jl. Nanggulan - Jl. Dr. Muwardi - Jl. Taman Pahlawan - Buk Suling – Tamansari</td>
+                <td>Kalibening, Tingkir</td>
+                <td>3,5 KM</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Tamansari- Isep Isep-Cengek PP</td>
+                <td>Tamansari - Buk Suling - Jl. Taman Pahlawan - Jl. Dr. Muwardi - Jl. Jend. Sudirman - Tlogo - Joko Tingkir – Cengek - Perbatas Suruh</td>
+                <td>Perbatasan Suruh - Cengek - Joko Tingkir - Tlogo - Jl. Jend. Sudirman - Jl. A. Yani - Jl. Semeru - Jl. Pemotongan - Jl. Prof. M. Yamin - Jl. Diponegoro - Jl. Dr. Sumardi - Jl. Patimura - Jl. Pemuda – Tamansari</td>
+                <td>Tingkir Lor, Tingkir</td>
+                <td>7,3 KM</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Tamansari-Noborejo PP</td>
+                <td>Tamansari - Buk Suling - Jl. Taman Pahlawan - Jl. Dr. Muwardi - Jl. Jend. Sudirman - Noborejo</td>
+                <td>Noborejo - Jl. Jend. Sudirman - Jl. Dr. Muwardi - Jl. Taman Pahlawan - Buk Suling – Tamansar</td>
+                <td>Noborejo, Tingkir</td>
+                <td>6,7 KM</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Tamansari-Tegalrejo PP</td>
+                <td>Tamansari - Jl. Pemuda - Jl. Diponegoro - Jl. Prof . M. Yamin - Jl. Kartini - Jl. Adisucipto - Jl. Brigjend. Sudiarto - Jl. Osamaliki - Jl. Veteran – Tegalrejo - Perkebunan Karet</td>
+                <td>Perkebunan Karet - Tegalrejo - Jl. Veteran - Jl. Osamaliki - Jl. Wahid Hasyim - Jl. Diponegoro - Jl. Dr. Sumardi - Jl. Patimura - Jl. Pemuda – Tamansari</td>
+                <td>Tegalrejo, Argomulyo</td>
+                <td>6,3 KM</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>Tamansari- Ngawen PP</td>
+                <td>Tamansari - Jl. Pemuda - Jl. Diponegoro - Jl. Prof. M. Yamin - Jl. Adi Sucipto - Lap. Pancasila - Jl. Brig. Jend. Sudiarto - Jl. Osamaliki - Jl. Hasannudin – Ngawen -Perum Gardenia - SD Kumpulrejo</td>
+                <td>SD Kumpulrejo- Perum Gardenia - Ngawen - Jl. Hasannudin - Jl. A. Yani - Jl. Semeru - Jl. Kesambi - Jl. Pemotongan - Jl. Prof. M. Yamin - Jl. Diponegoro - Jl. Dr. Sumardi - Jl. Patimura - Jl. Pemuda – Tamansar</td>
+                <td>Mangunsari, Sidomukti</td>
+                <td>6 KM</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>Tamansari- Grogol PP</td>
+                <td>Tamansari - Jl. Pemuda - Jl. Diponegoro - Jl. Prof. M. Yamin - Jl. Adi Sucipto - Lap. Pancasila - Jl. Brig. Jend. Sudiarto - Jl. Kali Nongko - Jl. Osamaliki - Jl. Merak - Jl. Nakulo Sadewa - Jl. Bima – Grogol</td>
+                <td>Grogol - Jl. Bima - Jl. Nakulo Sadewa - Jl. Merak - Jl. Osamaliki - Jl. Stadion - Jl. Adi Sucipto - Jl. Prof. M. Yamin - Jl. Diponegoro - Jl. R. Patah - Jl. Patimura - Jl. Pemuda – Tamansari</td>
+                <td>Dukuh, Sidomukti</td>
+                <td>4,9 KM</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Tamansari- RSU- Isep isep PP</td>
+                <td>Tamansari - Jl. Pemuda - Jl. Diponegoro - Jl. Prof. M. Yamin - Jl. Kartini - Jl. Osamaliki - Jl. Veteran – Isep Isep</td>
+                <td>Isep Isep - Jl. Veteran - Jl. Osamaliki - Jl. Kartini - Jl. Prof. M. Yamin - Jl. Diponegoro - Jl. Sumardi - Jl. Patimura - Jl. Pemuda – Tamansari</td>
+                <td>Cebongan, Argomulyo</td>
+                <td>5,6 KM</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>Tamansari- Karangalit- Perum Warak PP</td>
+                <td>Tamansari - Jl. Pemuda - Jl. Diponegoro - Jl. Prof. M. Yamin - Jl. Adi Sucipto - Lap. Pancasila - Jl. Brig. Jend. Sudiarto - Jl. Osamaliki - Jl. Hasannudin - Jl. Arjuna - Jl. Wisanggeni - Jl. Purbaya Raya - Jl. Yudistira - Jl. Parikesit - Perumahan Warak</td>
+                <td>Perumahan Warak - Jl. Parikesit - Jl. Yudistira - Jl. Purbaya Raya - Jl. Wisanggeni - Jl. Arjuna - Jl. Hasannudin - Jl. A. Yani - Jl. Semeru - Jl. Kesambi - Jl. Pemotongan - Jl. Prof. M. Yamin - Jl. Diponegoro - Jl. Dr. Sumardi - Jl. Patimura - Jl. Pemuda – Tamansari</td>
+                <td>Dukuh, Sidomukti</td>
+                <td>6,2 KM</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>Tamansari- Bugel- Sembir PP</td>
+                <td>Tamansari - Jl. Pemuda - Jl. Patimura - Jl. Domas - Jl. Kemiri Raya - Kalisawo - Jl. Mutiara - Sarirejo – Sembir</td>
+                <td>Sembir - Bugel - Sarirejo - Jl. Sumopura - Jl. Patimura - Jl. Pemuda – Tamansari</td>
+                <td>Bugel, Sidorejo</td>
+                <td>5,3 KM</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>Tamansari- Taman Tingkir PP</td>
+                <td>Tamansari - Jl. Pemuda - Jl. Jend. Sudirman – Jl. Argo Tunggal - Jl. Tritis Asri- Taman Tingkir</td>
+                <td>Taman Tingkir - Jl. Tritis Asri – Jl. Argo Tunggal – Jl.Veteran - Jl. Osamaliki - Jl. Kartini - Jl. Prof. M. Yamin -Jl. Diponegoro - Jl. Sumardi - Jl. Patimura - Jl. Pemuda –Tamansari</td>
+                <td>Tingkir</td>
+                <td>4,5 KM</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>Tamansari- Banyu Putih- Grogol PP</td>
+                <td>Tamansari - Jl. Pemuda - Jl. Diponegoro - Jl. Atmosuharjo - Jl. Imam Bonjol - Banyu Putih - Jl. Nakulo Sadewa - Jl. Bima – Grogol</td>
+                <td>Grogol - Jl. Bima - Jl. Nakula Sadewa - Banyu Putih - Jl. Imam Bonjol - Jl. Atmosuharjo - Jl. Diponegoro - Jl. Dr. Sumardi - Jl. Pemuda – Tamansari</td>
+                <td>Kutawinangun, Tingkir</td>
+                <td>6,4 KM</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>Tamansari- Candiwesi- Bugel PP</td>
+                <td>Tamansari - Jl. Pemuda - Jl. Patimura - Candiwesi – Bugel</td>
+                <td>Bugel - Candiwesi - Jl. Patimura - Jl. Pemuda – Tamansari</td>
+                <td>Bugel, Sidorejo</td>
+                <td>3,4 KM</td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td>Tamansari- Randuacir PP</td>
+                <td>Tamansari - Buk Suling - Jl. Taman Pahlawan - Jl. Dr. Muwardi - Jl. Jend. Sudirman - Jl. Argomulyo - Tetep Wetan - Randuacir (Dukuh Salam)</td>
+                <td>Randuacir (Dukuh Salam) - Tetep Wetan - Jl. Argomulyo -Jl. Jend. Sudirman - Jl. Dr. Muwardi - Jl. Taman Pahlawan - Buk Suling – Tamansari</td>
+                <td>Randuacir, Argomulyo</td>
+                <td>6,7 KM</td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>Tamansari- Gamol PP</td>
+                <td>Tamansari - Jl. Pemuda - Jl. Diponegoro - Monginsidi - Jl. Kartini - Jl. Imam Bonjol - Dk. Ngaliyan - Dk. Duren - Dk. Gamol</td>
+                <td>Dk. Gamol - Dk. Duren - Dk. Ngaliyan - Jl. Imam Bonjol - Jl. Kartini - Monginsidi - Jl. Diponegoro - Jl. Dr. Sumardi - Jl. Patimura - Jl. Pemuda – Tamansari</td>
+                <td>Kecandran, Sidomukti</td>
+                <td>6,7 KM</td>
+            </tr>
+              <!-- Tambahin sisanya -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    
+    <!-- Bootstrap & Leaflet JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+
+    <!-- Footer -->
+    <footer class="footer_section">
+        <div class="container">
+            <p>&copy; <span id="displayYear"></span> All Rights Reserved By <a href="https://html.design/">Ritma Anwar</a></p>
+        </div>
+    </footer>
+</body>
+</html>
