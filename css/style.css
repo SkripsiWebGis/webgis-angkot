@@ -1299,4 +1299,34 @@ thead.custom-header {
   margin-right: 8px;
   border: 1px solid #999;
 }
+/* Banner */
+.warning-banner {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(235, 118, 128, 0.932);
+  color: rgb(247, 10, 10);
+  text-align: center;
+  padding: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  display: none; /* Defaultnya disembunyikan */
+  z-index: 10000; /* Supaya di atas elemen lain */
+}
 
+.warning-banner button {
+  background: none;
+  color: red;
+  border: none;
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  
+}
+
+.warning-banner button:hover {
+  background: #ffcccc;
+}
