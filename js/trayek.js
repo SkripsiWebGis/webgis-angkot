@@ -179,4 +179,15 @@ function toggleLegend() {
       body.style.display = "none";
     }
   }
-  
+document.addEventListener("DOMContentLoaded", function () {
+    // Cek apakah user sudah pernah melihat banner
+    if (!localStorage.getItem("bannerShown")) {
+        document.getElementById("warning-banner").style.display = "block";
+    }
+
+    // Event untuk menutup banner
+    document.getElementById("close-banner").addEventListener("click", function () {
+        document.getElementById("warning-banner").style.display = "none";
+        localStorage.setItem("bannerShown", "true"); // Simpan di localStorage agar tidak muncul lagi
+    });
+});
