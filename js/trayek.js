@@ -105,6 +105,19 @@ function resetPeta() {
         map.setView(initialView.center, resetZoom);
     });
 }
+// Tambahkan wilayah yang tidak terjangkau angkot
+    $.getJSON("geojson/wilayah-luar.geojson", function(wilayah) {
+        L.geoJSON(wilayah, {
+            style: {
+            color: "#ff0000",        // biru
+            fillColor: "#ff0000",    // biru
+            fillOpacity: 0.25,
+            weight: 1,
+            dashArray: '4'
+        }
+    }).addTo(map).bindPopup("Wilayah di luar jangkauan angkot");
+});
+
 
 // Fungsi saat trayek dipilih dari dropdown manual
 function tampilkanJalurDariNavbar(namaTrayek) {
@@ -129,6 +142,7 @@ function tampilkanJalurDariNavbar(namaTrayek) {
         map.fitBounds(layer.getBounds(), { padding: [20, 20], maxZoom: 18 });
     });
 }
+
 function getTrayekColor(trayekId) {
     let stored = localStorage.getItem("trayekColors");
     let colors = stored ? JSON.parse(stored) : {};
@@ -178,8 +192,9 @@ function toggleLegend() {
     } else {
       body.style.display = "none";
     }
-  }
-document.addEventListener("DOMContentLoaded", function () {
+    }
+  
+  document.addEventListener("DOMContentLoaded", function () {
     // Cek apakah user sudah pernah melihat banner
     if (!localStorage.getItem("bannerShown")) {
         document.getElementById("warning-banner").style.display = "block";
