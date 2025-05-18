@@ -1299,6 +1299,7 @@ thead.custom-header {
   margin-right: 8px;
   border: 1px solid #999;
 }
+
 /* Banner */
 .warning-banner {
   position: absolute;
@@ -1306,7 +1307,7 @@ thead.custom-header {
   left: 0;
   width: 100%;
   background-color: rgba(235, 118, 128, 0.932);
-  color: rgb(247, 10, 10);
+  color: #ff0000;
   text-align: center;
   padding: 10px;
   font-size: 16px;
@@ -1317,7 +1318,7 @@ thead.custom-header {
 
 .warning-banner button {
   background: none;
-  color: red;
+  color: #ff0000;
   border: none;
   position: absolute;
   top: 5px;
@@ -1330,3 +1331,64 @@ thead.custom-header {
 .warning-banner button:hover {
   background: #ffcccc;
 }
+
+.peringatan-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.peringatan-box {
+  background: #fff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+  animation: scaleIn 0.3s ease;
+  max-width: 300px;
+  width: 90%;
+}
+
+.peringatan-icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+  color: #e74c3c;
+}
+
+#pesanPeringatan {
+  font-size: 18px;
+  font-weight: bold;
+  color: #e74c3c;
+  margin-bottom: 15px;
+}
+
+.tutup-btn {
+  background-color: #e74c3c;
+  color: #fff;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.tutup-btn:hover {
+  background-color: #c0392b;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
