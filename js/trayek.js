@@ -41,10 +41,16 @@ var initialView = {
 };
 
 // Load semua jalur saat halaman pertama kali dibuka
+// ID trayek yang mau di-hide saat load awal
+const trayekDisembunyikan = [10, 13, 14, 15];
+
 $.getJSON("geojson/angkotbiru.geojson", function(data) {
     L.geoJSON(data, {
+        filter: function(feature) {
+            return !trayekDisembunyikan.includes(parseInt(feature.properties.Trayek));
+        },
         style: function (feature) {
-            return { color: getTrayekColor(feature.properties.Trayek), weight: 5 };
+            return { color: feature.properties.warna || "#000000", weight: 5 };
         },
         onEachFeature: function(feature, layer) {
             allPolylines.push(layer);
@@ -67,20 +73,23 @@ $.getJSON("geojson/angkotbiru.geojson", function(data) {
     }).addTo(map);
 });
 
+
 // Reset tampilan saat klik di luar jalur
 map.on('click', function() {
     resetPeta();
 });
 
-// Fungsi reset peta
 function resetPeta() {
     allPolylines.forEach(poly => map.removeLayer(poly));
     allPolylines = [];
 
     $.getJSON("geojson/angkotbiru.geojson", function(data) {
         L.geoJSON(data, {
+            filter: function(feature) {
+                return !trayekDisembunyikan.includes(parseInt(feature.properties.Trayek));
+            },
             style: function (feature) {
-                return { color: getTrayekColor(feature.properties.Trayek), weight: 5 };
+                return { color: feature.properties.warna || "#000000", weight: 5 };
             },
             onEachFeature: function(feature, layer) {
                 allPolylines.push(layer);
@@ -101,10 +110,12 @@ function resetPeta() {
                 });
             }
         }).addTo(map);
+
         let resetZoom = window.innerWidth < 768 ? 12 : 13;
         map.setView(initialView.center, resetZoom);
     });
 }
+
 // Tambahkan wilayah yang tidak terjangkau angkot
     $.getJSON("geojson/wilayah-luar.geojson", function(wilayah) {
         L.geoJSON(wilayah, {
@@ -132,9 +143,23 @@ function tampilkanJalurDariNavbar(namaTrayek) {
             return;
         }
 
+        let status = filteredFeatures[0].properties.status;
+        if (status && status.toLowerCase() === "nonaktif") {
+            tampilkanPeringatan("Jalur ini tidak beroperasi");
+        }
+
         var layer = L.geoJSON(filteredFeatures, {
             style: function (feature) {
-                return { color: getTrayekColor(feature.properties.Trayek), weight: 5 };
+                return { color: feature.properties.warna || "#000000", weight: 5 };
+            },
+            onEachFeature: function(feature, layer) {
+                const popupContent = "Nama jalur: " + feature.properties.Trayek;
+                layer.bindPopup(popupContent);
+
+                // Munculkan popup di tengah jalur
+                setTimeout(() => {
+                    layer.openPopup(layer.getBounds().getCenter());
+                }, 200); // sedikit delay supaya pasti setelah layer nempel di peta
             }
         }).addTo(map);
 
@@ -143,42 +168,80 @@ function tampilkanJalurDariNavbar(namaTrayek) {
     });
 }
 
-function getTrayekColor(trayekId) {
-    let stored = localStorage.getItem("trayekColors");
-    let colors = stored ? JSON.parse(stored) : {};
-
-    // Kalau belum ada warna untuk trayek ini, generate
-    if (!colors[trayekId]) {
-        colors[trayekId] = getRandomColor();
-        localStorage.setItem("trayekColors", JSON.stringify(colors));
-    }
-
-    return colors[trayekId];
-}
-
 function buatLegendaOtodidak() {
     $.getJSON("geojson/angkotbiru.geojson", function(data) {
-        let trayekUnik = new Set();
+        let trayekMap = new Map();
         let legendList = document.getElementById("legend-list");
         legendList.innerHTML = "";
 
+        // Cari trayek unik dan ambil warna dari feature pertama
         data.features.forEach(feature => {
             let trayek = feature.properties.Trayek;
+            let warna = feature.properties.warna || "#000000";
 
-            if (!trayekUnik.has(trayek)) {
-                trayekUnik.add(trayek);
-
-                let warna = getTrayekColor(trayek);
-                let item = document.createElement("li");
-                item.innerHTML = `
-                    <span style="display:inline-block;width:16px;height:16px;background:${warna};margin-right:8px;border-radius:2px;"></span>
-                    ${trayek}
-                `;
-                legendList.appendChild(item);
+            if (!trayekMap.has(trayek)) {
+                trayekMap.set(trayek, warna);
             }
+        });
+
+        // Buat elemen legenda dari Map
+        trayekMap.forEach((warna, trayek) => {
+            let item = document.createElement("li");
+            item.innerHTML = ` 
+                <span style="display:inline-block;width:16px;height:16px;background:${warna};margin-right:8px;border-radius:2px;"></span>
+                ${trayek}
+            `;
+
+            item.addEventListener("click", function() {
+                // Highlight trayek saat item legenda diklik
+                highlightJalur(trayek);
+            });
+
+            legendList.appendChild(item);
         });
     });
 }
+
+// Fungsi untuk highlight jalur berdasarkan trayek
+function highlightJalur(namaTrayek) {
+    // Sembunyikan semua jalur terlebih dahulu
+    allPolylines.forEach(poly => map.removeLayer(poly));
+    allPolylines = [];
+
+    // Filter jalur yang sesuai dengan nama trayek
+    $.getJSON("geojson/angkotbiru.geojson", function(data) {
+        var filteredFeatures = data.features.filter(feature => feature.properties.Trayek == namaTrayek);
+
+        if (filteredFeatures.length === 0) {
+            console.warn("Trayek tidak ditemukan:", namaTrayek);
+            return;
+        }
+
+        let status = filteredFeatures[0].properties.status;
+        if (status && status.toLowerCase() === "nonaktif") {
+            tampilkanPeringatan("Jalur ini tidak beroperasi");
+        }
+
+        var layer = L.geoJSON(filteredFeatures, {
+            style: function (feature) {
+                return { color: feature.properties.warna || "#000000", weight: 5 };
+            },
+            onEachFeature: function(feature, layer) {
+                const isi = "Nama jalur: " + feature.properties.Trayek;
+                layer.bindPopup(isi);
+
+                // Buka popup langsung di tengah garis
+                setTimeout(() => {
+                    layer.openPopup(layer.getBounds().getCenter());
+                }, 200);
+            }
+        }).addTo(map);
+
+        allPolylines.push(layer);
+        map.fitBounds(layer.getBounds(), { padding: [20, 20], maxZoom: 18 });
+    });
+}
+
 
 function toggleLegend() {
     var body = document.getElementById("legendBody");
@@ -206,3 +269,11 @@ function toggleLegend() {
         localStorage.setItem("bannerShown", "true"); // Simpan di localStorage agar tidak muncul lagi
     });
 });
+
+function tampilkanPeringatan(pesan) {
+    document.getElementById("popupPeringatan").style.display = "flex";
+}
+
+function tutupPeringatan() {
+    document.getElementById("popupPeringatan").style.display = "none";
+}
