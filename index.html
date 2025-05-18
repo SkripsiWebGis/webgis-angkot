@@ -53,8 +53,9 @@
                             <ul class="navbar-nav ml-auto">
                             <li class="nav-item active"><a class="nav-link" href="index.html">Peta</a></li>
                             <li class="nav-item"><a class="nav-link" href="rute.html">Rute</a></li>
+                            <li class="nav-item"><a class="nav-link" href="tatacara.html">Tata Cara</a></li>
                             <li class="nav-item"><a class="nav-link" href="lokasi.html">Lokasi</a></li>
-                            <li class="nav-item"><a class="nav-link" href="https://forms.gle/f2ZJMHiCfVRWXvkw6">Bantuan</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://forms.gle/f2ZJMHiCfVRWXvkw6">Bantuin</a></li>
                             
                             <li class="nav-item dropdown">
                               <a class="nav-link dropdown-toggle" href="#" id="trayekDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -70,15 +71,14 @@
                                   <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(7)">Trayek 7</a></li>
                                   <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(8)">Trayek 8</a></li>
                                   <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(9)">Trayek 9</a></li>
-                                  <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(10)">Trayek 10</a></li>
+                                  <li><a class="dropdown-item text-danger" href="#" onclick="tampilkanJalurDariNavbar(10)">Trayek 10</a></li>
                                   <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(11)">Trayek 11</a></li>
                                   <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(12)">Trayek 12</a></li>
-                                  <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(13)">Trayek 13</a></li>
-                                  <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(14)">Trayek 14</a></li>
-                                  <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(15)">Trayek 15</a></li>
+                                  <li><a class="dropdown-item text-danger" href="#" onclick="tampilkanJalurDariNavbar(13)">Trayek 13</a></li>
+                                  <li><a class="dropdown-item text-danger" href="#" onclick="tampilkanJalurDariNavbar(14)">Trayek 14</a></li>
+                                  <li><a class="dropdown-item text-danger" href="#" onclick="tampilkanJalurDariNavbar(15)">Trayek 15</a></li>
                                   <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(16)">Trayek 16</a></li>
                                   <li><a class="dropdown-item" href="#" onclick="tampilkanJalurDariNavbar(17)">Trayek 17</a></li>
-                                  <!-- Tambahkan sampai 17 -->
                               </ul>
                           </li>
                         
@@ -98,6 +98,8 @@
     <p>Website ini masih dalam tahap pengembangan sehingga fitur yang tersedia belum lengkap. <br> Data yang ada dalam website ini diambil dari wawancara dengan Dinas Perhubungan Kota Salatiga dengan tujuan menyajikan peta jalur transportasi umum. Mohon bijak saat menggunakan. Terima kasih.</p>
     <button id="close-banner"><i class="fas fa-times"></i></button>
 </div>
+
+
     <!-- Dropdown Legend -->
     <div class="legend-container leaflet-control">
         <div class="legend-box"></div>
@@ -182,5 +184,12 @@
     buatLegendaOtodidak();
   </script>
   
+  <div id="popupPeringatan" class="peringatan-modal">
+    <div class="peringatan-box">
+      <div class="peringatan-icon">⚠️</div>
+      <p id="pesanPeringatan">Mohon Maaf <br> Trayek ini tidak beroperasi</p>
+      <button class="tutup-btn" onclick="tutupPeringatan()">Tutup</button>
+    </div>
+  </div>
 </body>
 </html>
